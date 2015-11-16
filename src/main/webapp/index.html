@@ -1,0 +1,25 @@
+<html>
+<head></head>
+<body>
+
+
+	<script src="http://code.jquery.com/jquery-1.11.3.js"></script>
+	
+	<script src="sbt-for-scala-js-build-fastopt.js"></script>
+	
+	<script type="text/javascript">
+	function listLoaded() {
+		console.info("haj");
+	}
+  	function localInit() {
+        gapi.client.load('list' , 'v1', listLoaded , '//' + window.location.host + '/_ah/api');
+//         gapi.client.load('id'   , 'v1', idLoaded   , '//' + window.location.host + '/_ah/api');
+//         gapi.client.load('named', 'v1', namedLoaded, '//' + window.location.host + '/_ah/api');
+//         gapi.client.load('oauth2', 'v2', oauth2Loaded);
+    	}
+    </script>
+
+    <script src="https://apis.google.com/js/client.js?onload=localInit">
+    </script>
+</body>
+</html>
