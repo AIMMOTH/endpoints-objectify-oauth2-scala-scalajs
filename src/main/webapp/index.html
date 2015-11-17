@@ -2,12 +2,27 @@
 <head></head>
 <body>
 
+    <form onsubmit="return splitSubmit(this)">
+      <p>Enter comma separated values. The Scala JS validator will check there's at least two values.</p>
+      <input type="text" name="text" placeholder="Value 1, value 2 ...">
+      <input type="submit">
+    </form>
 
 	<script src="http://code.jquery.com/jquery-1.11.3.js"></script>
 	
 	<script src="sbt-for-scala-js-build-fastopt.js"></script>
 	
 	<script type="text/javascript">
+	function splitSubmit(formElement) {
+	  try {
+	    	var form = $(formElement);
+		  io.cenet.scalajs.validator.SplitValidator().apply(form.find("[name='text']").val());
+		  alert("Ok!");
+	  } catch (exception) {
+	    alert(exception);
+	  }
+	  return false;
+	}
 	function listLoaded() {
 		console.info("haj");
 	}

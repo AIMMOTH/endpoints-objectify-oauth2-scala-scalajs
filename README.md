@@ -18,7 +18,7 @@ Run locally with Appengine SDK.
 
 3) Optional: Download Appengine SDK or look for it in Maven repostiory
 
-4) Start with address and port as parameters $ %APPENGINE_SDK_HOME/bin/dev_appserver -a localhost -p 8080 src/main/webapp
+4) Start with address and port as parameters $ %APPENGINE_SDK_HOME%/bin/dev_appserver -a localhost -p 8080 src/main/webapp
 
 5) Optional: Add flag to start Java remote debugger
 
@@ -29,7 +29,7 @@ Run locally with Appengine SDK.
 API Discover
 ------------
 
-Check the API by starting it locally and go to:
+Check the API by starting it locally and go to (activate "insecure" scripts):
 
 ```
 http://localhost:8080/_ah/api/explorer
@@ -40,10 +40,29 @@ Eclipse
 
 Create Eclipse project with some modifications and import
 
-1) $ mvn eclipse:eclipse
+1) Install Scala IDE plugin
 
-2) Edit .project and replace builder and nature
+```
+http://scala-ide.org/download/current.html
+```
 
-3) Import in Eclipse
+2) $ mvn eclipse:eclipse
 
-4) Set source and target output
+3) Edit .project and replace builder and nature. You can create a new Eclipse Scala Project, open the .project file and use it as reference.
+
+```
+	<buildSpec>
+		<buildCommand>
+			<name>org.scala-ide.sdt.core.scalabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.scala-ide.sdt.core.scalanature</nature>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
+```
+4) Import in Eclipse
+
+5) Set source and target output

@@ -12,6 +12,7 @@ import io.cenet.scala.datastore.entity.ListEntity
 import io.cenet.scala.datastore.Objectify
 import io.cenet.scala.endpoints.result.IdResult
 import java.util.Arrays
+import io.cenet.scalajs.validator.SplitValidator
 
 @Api(version = "v1", name = "list", authenticators = Array(classOf[ScalaAuthenticator]))
 class ListApi {
@@ -21,14 +22,14 @@ class ListApi {
    */
   @ApiMethod(httpMethod = "get")
   def get(@Named("id") id : JLong) =
-    Objectify.load.key(Key.create(classOf[ListEntity], id))
+    Objectify.load.key(Key.create(classOf[ListEntity], id)).now
   
   /**
    * Creates new entity and return it's new id.
    */
   @ApiMethod(httpMethod = "post")
   def post(@Named("csv") csv : String) =
-    Objectify.save.entity(ListEntity(csv.split(",").toList)).now match {
+    Objectify.save.entity(ListEntity(SplitValidator(csv).toList)).now match {
       case entity => IdResult(entity.getId)
     }
   
@@ -43,7 +44,7 @@ class ListApi {
       override def vrun =
         Objectify.load.key(Key.create(classOf[ListEntity], id)).now match {
           case existing : ListEntity => 
-            existing.list = csv.split(",").toList
+            existing.list = SplitValidator(csv).toList
             Objectify.save.entity(existing).now
           }
     })
