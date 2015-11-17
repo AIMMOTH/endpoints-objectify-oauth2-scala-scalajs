@@ -17,12 +17,14 @@ import java.util.Arrays
 class ListApi {
   
   @ApiMethod(httpMethod = "get")
-  def get = Objectify.load.`type`(classOf[ListEntity]).list()
+  def get(@Named("id") id : JLong) =
+    Objectify.load.key(Key.create(classOf[ListEntity], id))
   
   @ApiMethod(httpMethod = "post")
-  def post(@Named("csv") csv : String) = Objectify.save.entity(ListEntity(csv.split(",").toList)).now match {
-    case entity => IdResult(entity.getId)
-  }
+  def post(@Named("csv") csv : String) =
+    Objectify.save.entity(ListEntity(csv.split(",").toList)).now match {
+      case entity => IdResult(entity.getId)
+    }
   
   @ApiMethod(httpMethod = "put", path = "{id}")
   def put(@Named("id") id : JLong, @Named("csv") csv : String) : Unit =
