@@ -10,6 +10,11 @@ import com.googlecode.objectify.annotation.Id
 import com.googlecode.objectify.annotation.Entity
 import java.util.Arrays
 
+/**
+ * Needs serialization and therefore needs empty constructor and getters and 
+ * setters.
+ * Also Java types.
+ */
 @Entity
 @Cache
 class ListEntity {

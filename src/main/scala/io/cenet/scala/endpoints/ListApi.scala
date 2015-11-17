@@ -16,16 +16,26 @@ import java.util.Arrays
 @Api(version = "v1", name = "list", authenticators = Array(classOf[ScalaAuthenticator]))
 class ListApi {
   
+  /**
+   * Get by id.
+   */
   @ApiMethod(httpMethod = "get")
   def get(@Named("id") id : JLong) =
     Objectify.load.key(Key.create(classOf[ListEntity], id))
   
+  /**
+   * Creates new entity and return it's new id.
+   */
   @ApiMethod(httpMethod = "post")
   def post(@Named("csv") csv : String) =
     Objectify.save.entity(ListEntity(csv.split(",").toList)).now match {
       case entity => IdResult(entity.getId)
     }
   
+  /**
+   * Updates the entity with an idempotent work (in case other processes
+   * uses the entity).
+   */
   @ApiMethod(httpMethod = "put", path = "{id}")
   def put(@Named("id") id : JLong, @Named("csv") csv : String) : Unit =
     // Make PUT (update) idempotent
@@ -38,6 +48,10 @@ class ListApi {
           }
     })
   
+    /**
+     * Deletes the entity with an idempotent work (in case other processes
+     * uses the entity).
+     */
   @ApiMethod(httpMethod = "delete", path = "{id}")
   def delete(user : ApiUser, @Named("id") id : JLong) : Unit = 
     // Make DELETE (update) idempotent
