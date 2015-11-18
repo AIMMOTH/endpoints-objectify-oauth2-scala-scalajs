@@ -12,38 +12,37 @@ import io.cenet.scala.datastore.entity.ListEntity
 import io.cenet.scala.datastore.Objectify
 import io.cenet.scala.endpoints.result.IdResult
 import java.util.Arrays
+import io.cenet.java.datastore.entity.JavaEntity
 
-@Api(version = "v1", name = "list", authenticators = Array(classOf[ScalaAuthenticator]))
-class ListApi {
+@Api(version = "v1", name = "named", authenticators = Array(classOf[ScalaAuthenticator]))
+class NamedApi {
   
   /**
-   * Get by id.
+   * Get by name.
    */
-  @ApiMethod(httpMethod = "get")
-  def get(@Named("id") id : JLong) =
-    Objectify.load.key(Key.create(classOf[ListEntity], id)).now()
+  @ApiMethod(httpMethod = "get", path = "{name}")
+  def get(@Named("name") name : String) =
+    Objectify.load.key(Key.create(classOf[JavaEntity], name)).now
   
   /**
-   * Creates new entity and return it's new id.
+   * Creates new entity with parameter.
    */
   @ApiMethod(httpMethod = "post")
-  def post(@Named("csv") csv : String) =
-    Objectify.save.entity(ListEntity(csv.split(",").toList)).now match {
-      case entity => IdResult(entity.getId)
-    }
+  def post(@Named("name") name : String) : Unit =
+    Objectify.save.entity(new JavaEntity(name))
   
   /**
    * Updates the entity with an idempotent work (in case other processes
    * uses the entity).
    */
-  @ApiMethod(httpMethod = "put", path = "{id}")
-  def put(@Named("id") id : JLong, @Named("csv") csv : String) : Unit =
+  @ApiMethod(httpMethod = "put", path = "{name}")
+  def put(@Named("name") name : String) : Unit =
     // Make PUT (update) idempotent
     Objectify.transaction(new VoidWork {
       override def vrun =
-        Objectify.load.key(Key.create(classOf[ListEntity], id)).now match {
-          case existing : ListEntity => 
-            existing.list = csv.split(",").toList
+        Objectify.load.key(Key.create(classOf[JavaEntity], name)).now match {
+          case existing : JavaEntity => 
+            existing.lastModified = System.currentTimeMillis()
             Objectify.save.entity(existing).now
           }
     })
@@ -52,11 +51,11 @@ class ListApi {
      * Deletes the entity with an idempotent work (in case other processes
      * uses the entity).
      */
-  @ApiMethod(httpMethod = "delete", path = "{id}")
-  def delete(user : ApiUser, @Named("id") id : JLong) : Unit = 
+  @ApiMethod(httpMethod = "delete", path = "{name}")
+  def delete(user : ApiUser, @Named("name") name : String) : Unit = 
     // Make DELETE (update) idempotent
     Objectify.transaction(new VoidWork {
       override def vrun =
-        Objectify.delete.key(Key.create(classOf[ListEntity], id)).now
+        Objectify.delete.key(Key.create(classOf[JavaEntity], name)).now
     })
 }
