@@ -1,4 +1,4 @@
-package io.cenet.scala.datastore.entity
+package io.cenet.datastore.entity
 
 import java.lang.{Long => JLong}
 import java.util.{List => JList}

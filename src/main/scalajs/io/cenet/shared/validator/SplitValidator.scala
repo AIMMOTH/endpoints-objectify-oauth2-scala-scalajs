@@ -1,4 +1,4 @@
-package io.cenet.scalajs.validator
+package io.cenet.shared.validator
 
 import scala.scalajs.js.annotation.JSExport
 

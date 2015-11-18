@@ -1,4 +1,4 @@
-package io.cenet.java.datastore.entity;
+package io.cenet.datastore.entity;
 
 import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;

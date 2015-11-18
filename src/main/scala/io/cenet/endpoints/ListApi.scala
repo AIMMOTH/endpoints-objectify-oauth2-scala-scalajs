@@ -1,4 +1,4 @@
-package io.cenet.scala.endpoints
+package io.cenet.endpoints
 
 import java.lang.{Long => JLong}
 import javax.inject.Named
@@ -8,11 +8,11 @@ import com.google.api.server.spi.config.ApiMethod
 import com.googlecode.objectify.Key
 import com.google.appengine.api.users.{User => ApiUser}
 import com.googlecode.objectify.VoidWork
-import io.cenet.scala.datastore.entity.ListEntity
-import io.cenet.scala.datastore.Objectify
-import io.cenet.scala.endpoints.result.IdResult
 import java.util.Arrays
-import io.cenet.scalajs.validator.SplitValidator
+import io.cenet.shared.validator.SplitValidator
+import io.cenet.datastore.entity.ListEntity
+import io.cenet.datastore.Objectify
+import io.cenet.endpoints.result.IdResult
 
 @Api(version = "v1", name = "list", authenticators = Array(classOf[ScalaAuthenticator]))
 class ListApi {

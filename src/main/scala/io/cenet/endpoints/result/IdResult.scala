@@ -1,4 +1,4 @@
-package io.cenet.scala.endpoints.result
+package io.cenet.endpoints.result
 
 import java.lang.{Long => JLong}
 

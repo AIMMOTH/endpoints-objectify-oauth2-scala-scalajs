@@ -1,4 +1,4 @@
-package io.cenet.scala.endpoints
+package io.cenet.endpoints
 
 import java.util.logging.Logger
 import java.util.regex.Pattern

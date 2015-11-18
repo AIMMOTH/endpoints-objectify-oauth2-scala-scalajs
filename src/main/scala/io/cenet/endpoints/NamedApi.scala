@@ -1,4 +1,4 @@
-package io.cenet.scala.endpoints
+package io.cenet.endpoints
 
 import java.lang.{Long => JLong}
 import javax.inject.Named
@@ -8,11 +8,9 @@ import com.google.api.server.spi.config.ApiMethod
 import com.googlecode.objectify.Key
 import com.google.appengine.api.users.{User => ApiUser}
 import com.googlecode.objectify.VoidWork
-import io.cenet.scala.datastore.entity.ListEntity
-import io.cenet.scala.datastore.Objectify
-import io.cenet.scala.endpoints.result.IdResult
 import java.util.Arrays
-import io.cenet.java.datastore.entity.JavaEntity
+import io.cenet.datastore.Objectify
+import io.cenet.datastore.entity.JavaEntity
 
 @Api(version = "v1", name = "named", authenticators = Array(classOf[ScalaAuthenticator]))
 class NamedApi {

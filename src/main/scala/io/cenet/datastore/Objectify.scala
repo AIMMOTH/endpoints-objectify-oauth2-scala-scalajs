@@ -1,10 +1,10 @@
-package io.cenet.scala.datastore
+package io.cenet.datastore
 
 import com.googlecode.objectify.ObjectifyFactory
 import com.googlecode.objectify.ObjectifyService
-import io.cenet.scala.datastore.entity.ListEntity
+import io.cenet.datastore.entity.ListEntity
 import com.googlecode.objectify.VoidWork
-import io.cenet.java.datastore.entity.JavaEntity
+import io.cenet.datastore.entity.JavaEntity
 
 object Objectify {
   
