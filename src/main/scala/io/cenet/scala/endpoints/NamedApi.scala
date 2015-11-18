@@ -22,7 +22,7 @@ class NamedApi {
    */
   @ApiMethod(httpMethod = "get", path = "{name}")
   def get(@Named("name") name : String) =
-    Objectify.load.key(Key.create(classOf[JavaEntity], name)).now
+    Objectify.load.key(Key.create(classOf[JavaEntity], name)).now()
   
   /**
    * Creates new entity with parameter.
